@@ -2,14 +2,14 @@ public class CapacityShipDdays {
     public static int shipWithinDDays(int nums[], int D) {
         int min = 0;
         int max = 0;
-        for(int w : nums) {
-            min = Math.min(min, max);
+        for (int w : nums) {
+            min = Math.max(min, w);
             max += w;
         }
         int res = max;
-        while(min <= max) {
+        while (min <= max) {
             int mid = min + (max - min) / 2;
-            if(canBeShipped(nums, mid) <= D) {
+            if (canBeShipped(nums, mid) <= D) {
                 max = mid - 1;
                 res = mid;
             } else {
@@ -18,12 +18,13 @@ public class CapacityShipDdays {
         }
         return res;
     }
-    public static int canBeShipped(int nums[] , int capacity) {
-        int ship = 1; 
+
+    public static int canBeShipped(int nums[], int capacity) {
+        int ship = 1;
         int currCapp = 0;
-        for(int w : nums) {
+        for (int w : nums) {
             currCapp += w;
-            if(currCapp > capacity) {
+            if (currCapp > capacity) {
                 ship++;
                 currCapp = w;
             }
@@ -32,7 +33,7 @@ public class CapacityShipDdays {
     }
 
     public static void main(String[] args) {
-        int nums[] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
-        System.out.println(shipWithinDDays(nums, 5));
+        int nums[] = { 1, 2, 3, 1, 1 };
+        System.out.println(shipWithinDDays(nums, 4));
     }
 }
